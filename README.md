@@ -29,9 +29,9 @@ Do you want to add more dynamic responses to your intents? Feel free to use this
 
 ### Clone this repository
 
-- git clone TODO
+- git clone https://github.com/novalu/actions-on-google-typescript-template.git
 
-### Install and configure Firebase CLI (https://developers.google.com/actions/tools/fulfillment-hosting)
+### Install and configure Firebase CLI
 
 1. In your terminal run `npm  i -g firebase-tools`
 2. Run command `firebase login`
@@ -46,6 +46,8 @@ Do you want to add more dynamic responses to your intents? Feel free to use this
    5. Choose (N) several times not to overwrite existing files
    6. Choose (n) not to install dependencies
 7. You should see message "Firebase initialization complete!"
+
+Note: more detailed instructions are available as this [Actions on Google guide](https://developers.google.com/actions/tools/fulfillment-hosting)
 
 ### Install project dependencies 
 
@@ -107,26 +109,38 @@ You can test your manager by adding as a dependency to the `src/TestApp.ts` and 
 
 If you would to automatically reload and execute when source code is changed, run `gulp watch-changes` and in another terminal window run `gulp monitor-local`. If you make any changes in `.ts` files, project will be automatically recompiled using `tsc` and then executed with use of `nodemon`.
 
-### Add a storage [WIP]
+### Add a storage
+
+Sometimes you need a collection of items you want to use in your business logic. Creating a black-box storage is the best practice. You can use several storages which you can swap in dependency injection container, i.e. local storage with hardcoded collection of items and Firebase storage to fetch data from Firebase database.
 
 #### Use Firebase database as a storage [WIP]
+
+If you want to use your database in your Firebase project as a storage, create 
 
 * Add service-account.json
 * Fill database url to FirebaseUtils
 
-### Misc
-
-* If you want to use external APIs, you must upgrade your Firebase account to Blaze plan
-
 ### Add class to Dependency injection framework
 
-* Add class to DI functions/src/di/types.ts as
+Imagine you have an interface `DataStorage` and implementations `LocalDataStorage` and `FirebaseDataStorage`. Then you can these dependency as follows:
+
+* Add interface definition to `functions/src/di/types.ts` as shown here:
 
 ```typescript
-CustomClass: Symbol("CustomClass")
+DataStorage: Symbol("DataStorage")
 ```
 
-* Add binding to symbol from types.ts in functions/src/di/baseContainer.ts
+* Add binding to symbol from `types.ts` in `functions/src/di/baseContainer.ts`
+
+```typescript
+baseContainer.bind<DataStorage>(TYPES.DataStorage)
+    .to(LocalDataStorage)
+    .inSingletonScope();
+```
+
+Above we've defined that `DataStorage` dependency will be resolved to `LocalDataStorage`. If you want to change resolve to different implementation, then you can change it here without the touching your business logic.
+
+If you want to resolve class to instance of the same class, you can safely use this:
 
 ```typescript
 baseContainer.bind<CustomClass>(TYPES.CustomClass)
@@ -134,9 +148,9 @@ baseContainer.bind<CustomClass>(TYPES.CustomClass)
     .inSingletonScope();
 ```
 
-### Use a dependency from Dependency injection framework
+### Use a dependency from dependency injection framework
 
-If you want to use class from Dependency injection, then define it in a constructor:
+If you want to use class from dependency injection, then define it in a constructor with `@inject` annotation: 
 
 ```typescript
 constructor(
@@ -146,20 +160,76 @@ constructor(
 
 Then you can use member property `customClassInstance` in this class.
 
-### Get something from network [WIP]
+### Use third-party API
 
-### Send message to your Slack [WIP]
+If you want to communicate with third-party API to retrieve or post data, you can use class `src/utils/network/Request`. This class use well known `superagent` library to make network requests. Define the `Request` dependency in you manager and then use it e.g. as follows:
 
-### Directory structure [WIP]
+```typescript
+try {
+    const rates = await this.request.getJson("https://api.exchangeratesapi.io/latest");
+    rates.body // JSON
+} catch (err) {
+    this.logger.error(err);
+}
+```
+
+Note: If you want to use external APIs, you must upgrade your Firebase account to Blaze plan.
+
+### Use the Logger class
+
+If you want to debug to your console and Firebase functions log, you can use class `src/utils/log/Logger` as a dependency. Then you can call methods `trace`, `debug`, `info`, `warn`, `error`, `fatal`. Logger internally use `fancylog` library.
+
+### Send message to your Slack
+
+If you want to send message to your Slack channel as a part of your fulfillment, then create an Incoming Webhook as instructed here: https://api.slack.com/incoming-webhooks. Then create your slack hook as an implementation of `src/utils/slack/hooks/SlackHook.ts` in `src/utils/slack/hooks/impl`. Then use `SlackUtils.sendMessage` method.
+
+### Directory structure
+
+```
+app
+└───functions ... this functions project will be deployed to Firebase Functions
+│   └───src
+│   │   └───config ... configuration files
+│   │   └───di ... dependency injection configuration for the functions project
+│   │   └───fulfillments ... fulfillments logic
+│   │   └───managers ... classes with business logic for your fulfillments
+│   │   └───model ... models which is used in the project 
+│   │   └───storages ... storages for the models
+│   │   └───utils ... utilities for logging, networking, firebase integration, ...
+│   │   │   FunctionsApp.ts
+│   │   │   main.ts
+│   │   package.json ... dependencies for the functions project
+│   │   tsconfig.json ... TypeScript configuration for the functions project
+└───src ... main project for testing locally
+│   └───di ... dependency injection for the main project
+│   │   │   container.ts
+│   │   │   types.ts
+│   │   main.ts ... entry point for executing TestApp
+│   │   TestApp.ts ... main class for testing locally
+|	firebase.json ... location of the functions project
+│   gulpfile.js ... configuration for the Gulp build system
+│   nodemon.js ... configuration for the Nodemon, tool for monitoring changes in code
+│   package.json ... dependencies for the main project
+│   README.md ... this readme
+│   tsconfig.json ... TypeScript configuration for the main project
+```
 
 ### See Firebase Functions log
 
 If your Firebase function is not working, most likely you'll find some useful info in Firebase console. Choose `Develop > Functions > Log`
 
+## Actions build with this project
+
+- (your project)
+
+## Support
+
+Feel free to use this project for building your actions. Pull request welcome.
+
+If you like to support me, buy me a beer using this PayPal link: [paypal.me/novalu](https://www.paypal.com/paypalme/my/profile). Thank you!
+
 ## Background
 
-This project was created as a base for project at "Ok, Google, do a hackathon" which was held in December 2018 in coworking center [Vault 42](http://www.vault42.cz), Olomouc, Czech Republic. Our team built voice receptionist which is now in use by the coworking center. 
+This project was created as a base for project at "[Ok, Google, do a hackathon](https://www.meetup.com/GDG-Olomouc/events/256177266/)" which was held in December 2018 in coworking center [Vault 42](http://www.vault42.cz), Olomouc, Czech Republic. Our team built voice receptionist which is now in use by the coworking center. 
 
 ![Vault 42](https://www.vault42.cz/wp-content/uploads/2018/10/Vault42_interioriorphoto_byJK-10.png)
-
-## Support [WIP]
