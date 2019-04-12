@@ -1,0 +1,7 @@
+{
+  "execMap": {
+    "js": "node"
+  },
+  "ext": "js",
+  "delay": 2000
+}

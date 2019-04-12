@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "noImplicitAny": false,
+    "sourceMap": true, // debug support
+    "rootDir": "", // typescript maintain directory structure
+    "resolveJsonModule": true,
+    "experimentalDecorators": true, // inversify
+    "emitDecoratorMetadata": true, // inversify
+    "lib": [
+      "es6",
+      "dom",
+      "es2015.promise",
+      "es2017"
+    ],
+    "types": ["reflect-metadata", "node"], // inversify
+    "typeRoots": ["./node_modules/@types"]
+  },
+  "include": [
+    "src/**/*.ts"
+  ]
+}
