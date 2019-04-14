@@ -155,11 +155,9 @@ Sometimes you need a collection of items you want to use in your business logic.
 
 ## Test your app locally
 
-You can test your app by using your managers in the `src/TestApp.ts`. Run `gulp start-local` to execute the `test` method.
+You can test your app by using your managers in the `src/TestApp.ts`. Run `gulp build` to transpile from source code and then `gulp start` to execute the `test` method.
 
-If you would to have your app automatically recompiled and executed when source code is changed, run `gulp watch-changes` and in another terminal window run `gulp monitor-local`. If you make any changes in `.ts` files, project will be automatically recompiled using `tsc` and then executed.
-
-Note: this internally use nodemon tool.
+If you would to have your app automatically transpiled and executed when source code is changed, run `gulp build-and-watch`, leave running it in background and in another terminal run `gulp watch-run`. If you make any changes in `.ts` files, project will be automatically recompiled using `tsc` and then executed.
 
 ## Debugging
 
