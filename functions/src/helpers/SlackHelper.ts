@@ -1,6 +1,6 @@
 import {inject, injectable} from "inversify";
 import { TYPES } from "../di/types";
-import {Request} from "../utils/network/Request";
+import {NetworkRequest} from "../utils/network/NetworkRequest";
 import {Logger} from "../utils/log/Logger";
 
 @injectable()
@@ -9,7 +9,7 @@ class SlackHelper {
     private readonly WEBHOOK_URL = "";
 
     constructor(
-        @inject(TYPES.Request) private request: Request,
+        @inject(TYPES.NetworkRequest) private request: NetworkRequest,
         @inject(TYPES.Logger) private logger: Logger
     ) {}
 

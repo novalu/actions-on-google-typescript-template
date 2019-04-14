@@ -5,7 +5,7 @@ import {FirebaseHelper} from "../helpers/FirebaseHelper";
 import {Logger} from "../utils/log/Logger";
 import {SignaleLogger} from "../utils/log/impl/SignaleLogger";
 import {NetworkLogger} from "../utils/network/NetworkLogger";
-import {Request} from "../utils/network/Request";
+import {NetworkRequest} from "../utils/network/NetworkRequest";
 import {SillyNameManager} from "../managers/SillyNameManager";
 import {SillyNameFulfilment} from "../fulfillments/impl/SillyNameFulfilment";
 import {WordsStorage} from "../storages/words/WordsStorage";
@@ -58,8 +58,8 @@ baseContainer.bind<Logger>(TYPES.Logger)
 baseContainer.bind<NetworkLogger>(TYPES.NetworkLogger)
     .to(NetworkLogger)
     .inSingletonScope();
-baseContainer.bind<Request>(TYPES.Request)
-    .to(Request)
+baseContainer.bind<NetworkRequest>(TYPES.NetworkRequest)
+    .to(NetworkRequest)
     .inSingletonScope();
 
 export { baseContainer };

@@ -4,7 +4,7 @@ import { NetworkLogger } from "./NetworkLogger";
 import {TYPES} from "../../di/types";
 
 @injectable()
-class Request {
+class NetworkRequest {
   constructor(
     @inject(TYPES.NetworkLogger) private networkLogger: NetworkLogger
   ) {}
@@ -30,4 +30,4 @@ class Request {
   }
 }
 
-export { Request };
+export { NetworkRequest };

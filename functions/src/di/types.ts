@@ -32,7 +32,7 @@ const TYPES = {
     FirebaseHelper: Symbol("FirebaseHelper"),
     Logger: Symbol("Logger"),
     NetworkLogger: Symbol("NetworkLogger"),
-    Request: Symbol("Request")
+    NetworkRequest: Symbol("Request")
 
 };
 
