@@ -8,8 +8,9 @@ import {NetworkLogger} from "../utils/network/NetworkLogger";
 import {Request} from "../utils/network/Request";
 import {SillyNameManager} from "../managers/SillyNameManager";
 import {SillyNameFulfilment} from "../fulfillments/impl/SillyNameFulfilment";
-import {WordsStorage} from "../storages/test/WordsStorage";
-import {WordsLocalStorage} from "../storages/test/impl/WordsLocalStorage";
+import {WordsStorage} from "../storages/words/WordsStorage";
+import {WordsLocalStorage} from "../storages/words/impl/WordsLocalStorage";
+import {ConsoleLogger} from "../utils/log/impl/ConsoleLogger";
 
 const baseContainer = new Container();
 
