@@ -21,7 +21,7 @@ class SillyNameFulfilment implements Fulfillment {
         dialogflowApp.intent("make_name", async (conv, { color, number }) => {
             try {
                 const sillyName = await this.sillyNameManager.getSillyName(color, number);
-                conv.ask(`Alright, your silly name is ${sillyName}. I hope you like it! See you next time!`);
+                conv.ask(`Alright, your silly name by Firebase functions is ${sillyName}. I hope you like it! See you next time!`);
             } catch (err) {
                 this.logger.error(err);
             }
