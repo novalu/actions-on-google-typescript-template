@@ -1,6 +1,6 @@
 # Ready to use Actions on Google template
 
-Do you want to add more dynamic responses to your intents? Feel free to use this template, which use Actions on Google Node.js library, TypeScript, Firebase Functions. Optionally you can use Firebase Database or Slack webhooks. This template is for both beginners and experienced users of conversational apps using Actions on Google.
+Do you want to add dynamic responses to your intents? Feel free to use this template, which use Actions on Google Node.js library, TypeScript, Firebase Functions. This template is for both beginners and experienced users of conversational apps using Actions on Google.
 
 ## Used technologies and services
 
@@ -8,12 +8,13 @@ Do you want to add more dynamic responses to your intents? Feel free to use this
 - TypeScript
 - Actions on Google
 - Dialogflow
-- Firebase (Functions, Database)
+- Firebase (functions, database)
 
 ## Required
 
-* IDE (recommended WebStorm or Visual Studio Code)
+* Text editor or IDE (recommended WebStorm or Visual Studio Code)
 * Google account
+* Git
 
 ## How to start
 
@@ -24,12 +25,12 @@ Do you want to add more dynamic responses to your intents? Feel free to use this
 
 ### Install Node.js
 
-- Install Node.js according to official site https://nodejs.org/en/ (get LTS version)
+- Install Node.js according to official site https://nodejs.org/en/ (LTS version)
 - Or install Node.js using Node version manager (https://github.com/creationix/nvm#installation-and-update)
 
 ### Clone this repository
 
-- git clone https://github.com/novalu/actions-on-google-typescript-template.git
+- `git clone https://github.com/novalu/actions-on-google-typescript-template.git yourproject`
 
 ### Install and configure Firebase CLI
 
@@ -37,7 +38,7 @@ Do you want to add more dynamic responses to your intents? Feel free to use this
 2. Run command `firebase login`
 3. This will open browser, login to your Google account and allow access for Firebase CLI
 4. You should see something like "Success! Logged in as youraccount@gmail.com"
-5. Create a directory for your project and walk into it
+5. Change directory to `yourproject`
 6. Run command `firebase init`
    1. Choose `Functions` with Space and then Enter to confirm
    2. Choose your project which you've created in previous steps
@@ -47,90 +48,62 @@ Do you want to add more dynamic responses to your intents? Feel free to use this
    6. Choose (n) not to install dependencies
 7. You should see message "Firebase initialization complete!"
 
-Note: more detailed instructions are available as this [Actions on Google guide](https://developers.google.com/actions/tools/fulfillment-hosting)
+Note: More detailed instructions are available as this [Actions on Google guide](https://developers.google.com/actions/tools/fulfillment-hosting).
 
 ### Install project dependencies 
 
-1. Run command `npm i --only=dev`
+1. Run command `npm i --only=dev`. This will install necessary 
 2. Run command `gulp install-deps`
 
-### Set fulfillment to an Actions on Google project
+### Create Actions on Google and deploy fulfilmment
 
-1. Create Actions on Google project according to instructions here: https://github.com/actions-on-google/dialogflow-silly-name-maker. This will create your first action which is using simple response using Dialogflow.
+1. Create Actions on Google project according to the instructions here: https://github.com/actions-on-google/dialogflow-silly-name-maker. This will create your first action with simple text response using Dialogflow. Test this app in the simulator to make sure everything works.
 2. If you want to generate dynamic responses using this project, then:
-   1. Open Dialogflow console,
-   2. Select Intents in the left menu
-   3. Choose `make_name` intent
-   4. Scroll to Fulfillment
-   5. Choose Enable fulfillment
-   6. Enable webhook call for this intent
-   7. Click Save
-3. Deploy functions in this template (see "Deploy functions to Firebase" section below)
+   1. open Dialogflow console,
+   2. select Intents in the left menu,
+   3. choose `make_name` intent,
+   4. scroll to Fulfillment,
+   5. choose Enable fulfillment,
+   6. enable switch for the `Enable webhook call for this intent`,
+   7. click Save.
+3. Deploy your functions:
+   1. Run command `gulp deploy`. This will compile and upload your function to Firebase functions. If everything goes right, you should see URL of deployed function (labeled as `dialogflowFilfillment`)
 4. Set fulfillment URL:
-   1. Open Dialogflow console
-   2. Select Fulfillment in the left menu
-   3. Enable switch for the Webhook 
-   4. Fill URL input with URL from previous step
-   5. Click Save
+   1. Open Dialogflow console,
+   2. select Fulfillment in the left menu,
+   3. enable switch for the Webhook,
+   4. fill URL of your function (from previous step),
+   5. click Save.
 5. Test in Actions on Google simulator:
-   1. Open Dialogflow console
-   2. Select Integrations in the left menu
-   3. Click on Integration Settings for the Google Assistant
-   4. Click on Test
-   5. Confirm Auto preview
-   6. Start with typing `Talk to my test app` in the Input window
+   1. Open Dialogflow console,
+   2. select Integrations in the left menu,
+   3. click on Integration Settings for the Google Assistant,
+   4. click on Test,
+   5. confirm Auto preview.
 
-## Deploy Dialogflow fulfillment function to Firebase
-
-1. Run command `gulp deploy`
-2. After successful deploy you'll find URL to your deployed functions (labeled as dialogflowFulfillment)
-3. Note: If you make any changes to your fulfillment project, you should deploy functions again.
+You should see Actions on Google simulator. Start with typing `Talk to my test app` in the Input and confirm. Simulator should return as a response: `Alright, your silly name by Firebase functions is ... I hope you like it! See you next time!`. You can see this response is generated in `functions/src/fulfillments/impl/SillyNameFulfillment.ts`.
 
 ## Modify your fulfillments
 
-### Add a fulfillment
+Now it's time to add fulfillment for your new action. Use Node.js with TypeScript to add your fulfillments, managers and storages.
 
-Fulfillments in this projects are meant as a logical block of intent responses.
+If you make any changes to your fulfillment, you should deploy functions with `gulp deploy`.
 
-* Create implementation of `Fulfillment.ts` in `functions/src/fulfillments/impl`
-* Add class to Dependency injection (see below)
-* Add fulfillment symbol to `functions/src/config/fulfillments.ts`
+### Dependency injection
 
-### Add a manager
+This project use a dependency injection pattern for inject dependencies at the runtime. Generally it is not required to construct your classes with dependencies as a parameters in constructors. You just define which dependency your class need and dependency injection framework will take care of it.
 
-Managers are meant to be helper classes which will be used by your fulfillments. Manager should contain business logic for your fulfilments. Fulfillments should be separated from business logic to be possible to test your business logic.
+#### Add class to dependency injection framework
 
-* Create manager class in functions/src/managers
-* Add class to Dependency injection (see below)
+Imagine you have an interface `DataStorage` and implementations `LocalDataStorage` and `FirebaseDataStorage`. Then you can add these to the dependency injection as follows:
 
-#### Test your manager locally
-
-You can test your manager by adding as a dependency to the `src/TestApp.ts` and then run manager methods from the `test` method. Run `gulp start-local` to execute the `test` method.
-
-If you would to automatically reload and execute when source code is changed, run `gulp watch-changes` and in another terminal window run `gulp monitor-local`. If you make any changes in `.ts` files, project will be automatically recompiled using `tsc` and then executed with use of `nodemon`.
-
-### Add a storage
-
-Sometimes you need a collection of items you want to use in your business logic. Creating a black-box storage is the best practice. You can use several storages which you can swap in dependency injection container, i.e. local storage with hardcoded collection of items and Firebase storage to fetch data from Firebase database.
-
-#### Use Firebase database as a storage [WIP]
-
-If you want to use your database in your Firebase project as a storage, create 
-
-* Add service-account.json
-* Fill database url to FirebaseUtils
-
-### Add class to Dependency injection framework
-
-Imagine you have an interface `DataStorage` and implementations `LocalDataStorage` and `FirebaseDataStorage`. Then you can these dependency as follows:
-
-* Add interface definition to `functions/src/di/types.ts` as shown here:
+- Add interface definition to `functions/src/di/types.ts` as shown here:
 
 ```typescript
 DataStorage: Symbol("DataStorage")
 ```
 
-* Add binding to symbol from `types.ts` in `functions/src/di/baseContainer.ts`
+- Add binding to symbol from `types.ts` in `functions/src/di/baseContainer.ts`
 
 ```typescript
 baseContainer.bind<DataStorage>(TYPES.DataStorage)
@@ -138,9 +111,9 @@ baseContainer.bind<DataStorage>(TYPES.DataStorage)
     .inSingletonScope();
 ```
 
-Above we've defined that `DataStorage` dependency will be resolved to `LocalDataStorage`. If you want to change resolve to different implementation, then you can change it here without the touching your business logic.
+We've just defined that `DataStorage` dependency will be resolved to `LocalDataStorage`. If you want to use different implementation, you can change it here without the touching your business logic.
 
-If you want to resolve class to instance of the same class, you can safely use this:
+If you want to resolve class to the instance of the same class, you can safely use this:
 
 ```typescript
 baseContainer.bind<CustomClass>(TYPES.CustomClass)
@@ -148,21 +121,57 @@ baseContainer.bind<CustomClass>(TYPES.CustomClass)
     .inSingletonScope();
 ```
 
-### Use a dependency from dependency injection framework
+#### Use a dependency from dependency injection framework
 
 If you want to use class from dependency injection, then define it in a constructor with `@inject` annotation: 
 
 ```typescript
 constructor(
+    @inject(TYPES.DataStorage) private dataStorage: DataStorage,
 	@inject(TYPES.CustomClass) private customClassInstance: CustomClass,
 ) {}
 ```
 
-Then you can use member property `customClassInstance` in this class.
+This will inject `LocalDataStorage` as `dataStorage` and `CustomClass` as `customClassInstance` member properties.
 
-### Use third-party API
+### Add a fulfillment
 
-If you want to communicate with third-party API to retrieve or post data, you can use class `src/utils/network/Request`. This class use well known `superagent` library to make network requests. Define the `Request` dependency in you manager and then use it e.g. as follows:
+Fulfillments in this projects are meant as a logical blocks of intent responses.
+
+1. Create implementation of `Fulfillment.ts` in `functions/src/fulfillments/impl`.
+2. Add class to dependency injection.
+3. Add fulfillment symbol to `functions/src/config/fulfillments.ts`
+
+### Add a manager
+
+Managers are meant to be helper classes which will be used by your fulfillments. Manager should contain business logic for your fulfillments. Fulfillments should be separated from business logic in managers to easily test your business logic.
+
+1. Create manager class in `functions/src/managers`
+2. Add class to dependency injection.
+
+### Add a storage
+
+Sometimes you need a collection of items you want to use in your business logic. Creating a black-box storage is the best practice. You can use several storages which you can swap in the dependency injection, e.g. local storage with hardcoded collection of items (for debugging purposes) and Firebase storage to fetch data from Firebase database (for production).
+
+## Test your app locally
+
+You can test your app by using your managers in the `src/TestApp.ts`. Run `gulp start-local` to execute the `test` method.
+
+If you would to have your app automatically recompiled and executed when source code is changed, run `gulp watch-changes` and in another terminal window run `gulp monitor-local`. If you make any changes in `.ts` files, project will be automatically recompiled using `tsc` and then executed.
+
+Note: this internally use nodemon tool.
+
+## Debugging
+
+If you want to debug to your console and Firebase functions log, you can use class `src/utils/log/Logger` as a dependency. Then you can call methods `trace`, `debug`, `info`, `warn`, `error`, `fatal`. Logger use implementation depending on whether is app executed locally (library `signale`) or in Firebase functions cloud (simple console logging).
+
+If your Firebase function is not working, most likely you'll find some useful info in Firebase console. Choose `Develop > Functions > Log`.
+
+## Other
+
+### Use networking
+
+If you want to communicate with third-party API to retrieve or post data, you can use class `src/utils/network/NetworkRequest`. This class use awesome `superagent` library to make network requests. Define the `Request` dependency and then use it e.g. as follows:
 
 ```typescript
 try {
@@ -173,15 +182,22 @@ try {
 }
 ```
 
-Note: If you want to use external APIs, you must upgrade your Firebase account to Blaze plan.
+Note: If you want to use external APIs in your Firebase function, you must upgrade your Firebase account to Blaze plan.
 
-### Use the Logger class
+### Use Firebase database as a storage [WIP]
 
-If you want to debug to your console and Firebase functions log, you can use class `src/utils/log/Logger` as a dependency. Then you can call methods `trace`, `debug`, `info`, `warn`, `error`, `fatal`. Logger internally use `fancylog` library.
+If you want to use your database in your Firebase project as a storage, create 
 
-### Send message to your Slack
+- Add service-account.json
+- Fill database url to FirebaseUtils
 
-If you want to send message to your Slack channel as a part of your fulfillment, then create an Incoming Webhook as instructed here: https://api.slack.com/incoming-webhooks. Then create your slack hook as an implementation of `src/utils/slack/hooks/SlackHook.ts` in `src/utils/slack/hooks/impl`. Then use `SlackUtils.sendMessage` method.
+### Send message to Slack channel
+
+If you want to send message to your Slack channel as a part of your fulfillment, then create an Incoming Webhook as instructed here: https://api.slack.com/incoming-webhooks. Then fill the `WEBHOOK_URL` with your webhook URL in `functions/src/helpers/SlackHelper.ts`.  Then use `SlackHelper#sendMessage` method.
+
+### Add a dependency from npm
+
+If you want to add package dependency from npmjs.com, the run command `npm i packagename` in the directory functions. Make sure the dependency is listed in inner `package.json` file, so it will be used both locally and by Firebase functions.
 
 ### Directory structure
 
@@ -192,12 +208,13 @@ app
 │   │   └───config ... configuration files
 │   │   └───di ... dependency injection configuration for the functions project
 │   │   └───fulfillments ... fulfillments logic
+│   │   └───helpers ... classes you can use when using Firebase or Slack integration
 │   │   └───managers ... classes with business logic for your fulfillments
-│   │   └───model ... models which is used in the project 
+│   │   └───model ... models classes which is used by your managers
 │   │   └───storages ... storages for the models
-│   │   └───utils ... utilities for logging, networking, firebase integration, ...
+│   │   └───utils ... utilities for logging, networking, ...
 │   │   │   FunctionsApp.ts
-│   │   │   main.ts
+│   │   │   main.ts ... entry point for executing FunctionsApp in the Firebase function
 │   │   package.json ... dependencies for the functions project
 │   │   tsconfig.json ... TypeScript configuration for the functions project
 └───src ... main project for testing locally
@@ -206,19 +223,15 @@ app
 │   │   │   types.ts
 │   │   main.ts ... entry point for executing TestApp
 │   │   TestApp.ts ... main class for testing locally
-|	firebase.json ... location of the functions project
-│   gulpfile.js ... configuration for the Gulp build system
-│   nodemon.js ... configuration for the Nodemon, tool for monitoring changes in code
-│   package.json ... dependencies for the main project
+|	firebase.json ... configuration file with location of the functions project
+│   gulpfile.js ... configuration file for the Gulp build system
+│   nodemon.js ... configuration file for the Nodemon
+│   package.json ... npm configuration file with scripts, dependencies, ... definition
 │   README.md ... this readme
 │   tsconfig.json ... TypeScript configuration for the main project
 ```
 
-### See Firebase Functions log
-
-If your Firebase function is not working, most likely you'll find some useful info in Firebase console. Choose `Develop > Functions > Log`
-
-## Actions build with this project
+## Actions built with this project
 
 - (your project)
 
@@ -228,8 +241,14 @@ Feel free to use this project for building your actions. Pull request welcome.
 
 If you like to support me, buy me a beer using this PayPal link: [paypal.me/novalu](https://www.paypal.com/paypalme/my/profile). Thank you!
 
+## Thanks to
+
+- Authors of libraries used in this template.
+- Google for making awesome framework for building conversational actions.
+- Betatesters: N/A
+
 ## Background
 
-This project was created as a base for project at "[Ok, Google, do a hackathon](https://www.meetup.com/GDG-Olomouc/events/256177266/)" which was held in December 2018 in coworking center [Vault 42](http://www.vault42.cz), Olomouc, Czech Republic. Our team built voice receptionist which is now in use by the coworking center. 
+This project was created as a base for our project at "[Ok, Google, do a hackathon](https://www.meetup.com/GDG-Olomouc/events/256177266/)" which was held in December 2018 in coworking center [Vault 42](http://www.vault42.cz), Olomouc, Czech Republic. Our team built voice receptionist which is now in use by the coworking center. 
 
 ![Vault 42](https://www.vault42.cz/wp-content/uploads/2018/10/Vault42_interioriorphoto_byJK-10.png)
