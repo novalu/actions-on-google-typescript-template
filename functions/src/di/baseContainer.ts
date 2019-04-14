@@ -52,7 +52,7 @@ baseContainer.bind<FirebaseHelper>(TYPES.FirebaseHelper)
     .to(FirebaseHelper)
     .inSingletonScope();
 baseContainer.bind<Logger>(TYPES.Logger)
-    .to(SignaleLogger)
+    .to(process.env.NODE_ENV === "development" ? SignaleLogger : ConsoleLogger)
     .inSingletonScope();
 baseContainer.bind<NetworkLogger>(TYPES.NetworkLogger)
     .to(NetworkLogger)

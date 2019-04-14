@@ -4,11 +4,11 @@
   "description": "",
   "main": "src/main.js",
   "scripts": {
-    "install-deps": "npm i && cd functions && npm i && npm i -g nodemon",
+    "install-deps": "npm i && cd functions && npm i",
     "build": "tsc",
-    "start": "node src/main.js",
-    "debug": "node --inspect src/main.js",
-    "monitor": "nodemon --inspect",
+    "start": "NODE_ENV=development node src/main.js",
+    "debug": "NODE_ENV=development node --inspect src/main.js",
+    "monitor": "NODE_ENV=development nodemon --inspect",
     "deploy": "cd functions && npm run deploy"
   },
   "author": "",
