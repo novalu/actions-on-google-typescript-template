@@ -20,8 +20,9 @@
     "reflect-metadata": "0.1.13"
   },
   "devDependencies": {
-    "gulp-run-command": "0.0.9",
     "gulp": "3.9.1",
+    "gulp-run-command": "0.0.9",
+    "nodemon": "1.18.11",
     "typescript": "3.3.4000"
   }
 }
