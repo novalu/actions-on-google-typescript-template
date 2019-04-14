@@ -1,21 +1,22 @@
 import {inject, injectable} from "inversify";
-import { TYPES } from "../../di/types";
-import {Request} from "../network/Request";
-import {Logger} from "../log/Logger";
-import {SlackHook} from "./hooks/SlackHook";
+import { TYPES } from "../di/types";
+import {Request} from "../utils/network/Request";
+import {Logger} from "../utils/log/Logger";
 
 @injectable()
-class SlackUtils {
+class SlackHelper {
+
+    private readonly WEBHOOK_URL = "";
 
     constructor(
         @inject(TYPES.Request) private request: Request,
         @inject(TYPES.Logger) private logger: Logger
     ) {}
 
-    public async sendMessage(hook: SlackHook, text: string, attachmentText: string = undefined, attachmentImageUrl: string = undefined) {
+    public async sendMessage(text: string, attachmentText: string = undefined, attachmentImageUrl: string = undefined) {
         const data = this.constructWebhookObject(text, attachmentText, attachmentImageUrl);
         try {
-            await this.request.post(hook.url)
+            await this.request.post(this.WEBHOOK_URL)
                 .set('Content-Type', 'application/json')
                 .send(JSON.stringify(data));
             return true;
@@ -36,4 +37,4 @@ class SlackUtils {
     }
 }
 
-export { SlackUtils }
+export { SlackHelper }

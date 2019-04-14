@@ -34,8 +34,8 @@ const TYPES = {
     /* UTILS                                                                                      */
     /**********************************************************************************************/
 
-    SlackUtils: Symbol("SlackSender"),
-    FirebaseUtils: Symbol("FirebaseUtils"),
+    SlackHelper: Symbol("SlackHelper"),
+    FirebaseHelper: Symbol("FirebaseHelper"),
     Logger: Symbol("Logger"),
     NetworkLogger: Symbol("NetworkLogger"),
     Request: Symbol("Request")

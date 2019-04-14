@@ -1,7 +1,7 @@
 import {Container} from "inversify";
 import { TYPES } from "./types";
-import {SlackUtils} from "../utils/slack/SlackUtils";
-import {FirebaseUtils} from "../utils/FirebaseUtils";
+import {SlackHelper} from "../helpers/SlackHelper";
+import {FirebaseHelper} from "../helpers/FirebaseHelper";
 import {Logger} from "../utils/log/Logger";
 import {SignaleLogger} from "../utils/log/impl/SignaleLogger";
 import {NetworkLogger} from "../utils/network/NetworkLogger";
@@ -45,11 +45,11 @@ baseContainer.bind<WordsStorage>(TYPES.WordsStorage)
 /* UTILS                                                                                      */
 /**********************************************************************************************/
 
-baseContainer.bind<SlackUtils>(TYPES.SlackUtils)
-    .to(SlackUtils)
+baseContainer.bind<SlackHelper>(TYPES.SlackHelper)
+    .to(SlackHelper)
     .inSingletonScope();
-baseContainer.bind<FirebaseUtils>(TYPES.FirebaseUtils)
-    .to(FirebaseUtils)
+baseContainer.bind<FirebaseHelper>(TYPES.FirebaseHelper)
+    .to(FirebaseHelper)
     .inSingletonScope();
 baseContainer.bind<Logger>(TYPES.Logger)
     .to(SignaleLogger)

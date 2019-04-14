@@ -1,10 +1,10 @@
 import {inject, injectable} from "inversify";
 import * as firebaseAdmin from 'firebase-admin';
 
-const serviceAccountJson = require("../../service-account.json");
-
 @injectable()
-class FirebaseUtils {
+class FirebaseHelper {
+
+    private readonly DATABASE_URL = "";
 
     public db: firebaseAdmin.database.Database;
 
@@ -12,8 +12,8 @@ class FirebaseUtils {
 
     ) {
         const config = {
-            databaseURL: "",
-            credential: firebaseAdmin.credential.cert(serviceAccountJson),
+            databaseURL: this.DATABASE_URL,
+            credential: firebaseAdmin.credential.cert(require("../../service-account.json")),
         };
         firebaseAdmin.initializeApp(config);
         this.db = firebaseAdmin.database();
@@ -21,4 +21,4 @@ class FirebaseUtils {
 
 }
 
-export { FirebaseUtils }
+export { FirebaseHelper }
