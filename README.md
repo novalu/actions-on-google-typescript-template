@@ -1,19 +1,22 @@
-# Ready to use Actions on Google template
+# Build an Action on Google using Firebase Cloud Functions
 
-Do you want to add dynamic responses to your intents? Feel free to use this template, which use Actions on Google Node.js library, TypeScript, Firebase Functions. The template is for both beginners and experienced users of conversational apps using Actions on Google.
+Have you ever want to build your action with Actions on Google but got overwhelmed with several required technologies? There are various steps in different services *Actions on Google*, *Dialogflow*, *Firebase* in documentation and inexperienced user could be confused.
+
+Simply follow steps below to build voice app with Actions on Google Node.js library, Dialogflow, TypeScript and Firebase Cloud Functions. The template is for both beginners and experienced users.
 
 Using steps below you'll create simple action using Actions on Google and build a fulfillment for it. Then you can use it as the base for your Action.
 
 ## Used technologies and services
 
-- Node.js
-- TypeScript
-- Actions on Google
-- Dialogflow
-- Firebase (functions, database)
+- **Actions on Google** – developer platform that lets you extend Google Assistant with your own actions
+- **Dialogflow** – platform for natural language understanding (NLU), which helps with building actions suitable for humans
+- **Firebase (Cloud Functions, Realtime Database)** – development platform which gives you ability to build rich responses (besides other things) using your favorite programming language
+- **Node.js** – runtime environment often used for building server-side applications written in JavaScript
+- **TypeScript** – programming language which is transpiled to JavaScript (so we can use it to write apps for Node.js)
 
-## Required
+## Prerequisites
 
+* A little bit knowledge of TypeScript and Node.js (if you don't have it, try it anyway)
 * Text editor or IDE (recommended WebStorm or Visual Studio Code)
 * Google account
 * Git
@@ -91,7 +94,7 @@ If you want to generate dynamic responses using this project, then make this ste
    6. switch on the *Enable webhook call for this intent*,
    7. click *Save*.
 2. Deploy your functions:
-   1. Run command `gulp deploy`. This will compile and upload your function to Firebase functions. If everything goes right, you should see deployed function URL labeled as `dialogflowFilfillment` (take a note)
+   1. Run command `gulp deploy`. This will compile and upload your function to Firebase Cloud Functions. If everything goes right, you should see deployed function URL labeled as `dialogflowFilfillment` (take a note)
 3. Set fulfillment URL:
    1. Open Dialogflow console,
    2. select *Fulfillment* from the left menu,
@@ -185,9 +188,9 @@ If you would to have your app automatically transpiled and executed when source 
 
 ## Debugging
 
-If you want to debug to your console and Firebase functions log, you can use class **src/utils/log/Logger.ts** as a dependency. Then you can call methods `trace`, `debug`, `info`, `warn`, `error`, `fatal`. Logger use implementation depending on whether is app executed locally (library `signale`) or in Firebase functions cloud (simple console logging).
+If you want to write debugging info to both your console and Firebase Cloud Functions log, you can use class **src/utils/log/Logger.ts** as a dependency. Then you can call methods `trace`, `debug`, `info`, `warn`, `error`, `fatal`. Logger use implementation depending on whether is app executed locally (library `signale`) or in Firebase Cloud Functions environment (simple console logging).
 
-If your Firebase function is not working, most likely you'll find some useful info in Firebase console. Choose *Develop* > *Functions* > *Log*.
+If your function deployed to Firebase Cloud Functions is not working, most likely you'll find some useful info in Firebase console. Choose *Develop* > *Functions* > *Log*.
 
 ## Other
 
@@ -204,7 +207,7 @@ try {
 }
 ```
 
-Note: If you want to use external APIs in your Firebase function, you must upgrade your Firebase account to *Blaze* plan.
+Note: If you want to use external APIs in your Firebase Cloud Function, you must upgrade your Firebase account to *Blaze* plan.
 
 ### Use Firebase database as a storage [WIP]
 
@@ -219,13 +222,13 @@ If you want to send message to your Slack channel as a part of your fulfillment,
 
 ### Add a dependency from npm
 
-If you want to add package dependency from [npmjs.com](https://npmjs.com), the run command `npm i packagename` in the directory functions. Make sure the dependency is listed in inner **package.json** file, so it will be used both locally and by Firebase functions.
+If you want to add package dependency from [npmjs.com](https://npmjs.com), the run command `npm i packagename` in the directory functions. Make sure the dependency is listed in inner **package.json** file, so it will be used both locally and by Firebase Cloud Functions.
 
 ### Directory structure
 
 ```
 app
-└───functions ... this functions project will be deployed to Firebase Functions
+└───functions ... this functions project will be deployed to Firebase Cloud Functions
 │   └───src
 │   │   └───config ... configuration files
 │   │   └───di ... dependency injection configuration for the functions project
@@ -236,7 +239,7 @@ app
 │   │   └───storages ... storages for the models
 │   │   └───utils ... utilities for logging, networking, ...
 │   │   │   FunctionsApp.ts
-│   │   │   main.ts ... entry point for executing FunctionsApp in the Firebase function
+│   │   │   main.ts ... entry point for executing FunctionsApp in the cloud function
 │   │   package.json ... dependencies for the functions project
 │   │   tsconfig.json ... TypeScript configuration for the functions project
 └───src ... main project for testing locally
@@ -260,7 +263,7 @@ app
 
 ## Support
 
-Feel free to use this project for building your actions. Pull request welcome.
+Feel free to use this project for building your actions. Pull request welcome. If you like the template, don't forget to leave a star!
 
 If you like to support me, buy me a beer using this PayPal link: [paypal.me/novalu](https://www.paypal.com/paypalme/my/profile). Thank you!
 
