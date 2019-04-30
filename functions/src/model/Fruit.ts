@@ -1,4 +1,4 @@
-class Word {
+class Fruit {
     constructor(
         private name: string
     ) {}
@@ -8,4 +8,4 @@ class Word {
     }
 }
 
-export { Word }
+export { Fruit }

@@ -1,7 +1,7 @@
 ############### APP ##################
 
-node_modules
-functions/node_modules
+/node_modules
+/functions/node_modules
 
 # ignore all generated js and map
 src/**/*.js
@@ -18,5 +18,5 @@ functions/src/**/*.js.map
 .directory
 
 .firebaserc
-functions/service-account.json
+functions/src/config/service-account.json
 functions/lib

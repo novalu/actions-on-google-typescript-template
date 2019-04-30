@@ -6,11 +6,12 @@ import {Logger} from "../utils/log/Logger";
 import {SignaleLogger} from "../utils/log/impl/SignaleLogger";
 import {NetworkLogger} from "../utils/network/NetworkLogger";
 import {NetworkRequest} from "../utils/network/NetworkRequest";
+import {FruitsStorage} from "../storages/fruits/FruitsStorage";
+import {FruitsLocalStorage} from "../storages/fruits/impl/FruitsLocalStorage";
+import {ConsoleLogger} from "../utils/log/impl/ConsoleLogger";
+import {FruitsFirebaseStorage} from "../storages/fruits/impl/FruitsFirebaseStorage";
 import {SillyNameManager} from "../managers/SillyNameManager";
 import {SillyNameFulfilment} from "../fulfillments/impl/SillyNameFulfilment";
-import {WordsStorage} from "../storages/words/WordsStorage";
-import {WordsLocalStorage} from "../storages/words/impl/WordsLocalStorage";
-import {ConsoleLogger} from "../utils/log/impl/ConsoleLogger";
 
 const baseContainer = new Container();
 
@@ -38,8 +39,8 @@ baseContainer.bind<SillyNameFulfilment>(TYPES.SillyNameFulfillment)
 /* STORAGES                                                                                   */
 /**********************************************************************************************/
 
-baseContainer.bind<WordsStorage>(TYPES.WordsStorage)
-    .to(WordsLocalStorage)
+baseContainer.bind<FruitsStorage>(TYPES.FruitsStorage)
+    .to(FruitsLocalStorage)
     .inSingletonScope();
 
 /**********************************************************************************************/

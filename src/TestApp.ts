@@ -1,19 +1,19 @@
 import {inject, injectable} from "inversify";
 import { TYPES } from "../functions/src/di/types";
 import {Logger} from "../functions/src/utils/log/Logger";
-import {SillyNameManager} from "../functions/src/managers/SillyNameManager";
+import {FruitsStorage} from "../functions/src/storages/fruits/FruitsStorage";
 
 @injectable()
 class TestApp {
 
     constructor(
-        @inject(TYPES.SillyNameManager) private sillyNameManager: SillyNameManager,
+        @inject(TYPES.FruitsStorage) private fruitsStorage: FruitsStorage,
         @inject(TYPES.Logger) private logger: Logger
     ) {}
 
     public async start() {
-        const sillyName = await this.sillyNameManager.getSillyName("blue", "42");
-        this.logger.debug(sillyName);
+        const fruits = await this.fruitsStorage.getFruits();
+        this.logger.debug(fruits);
         process.exit(0);
     }
 

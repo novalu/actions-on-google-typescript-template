@@ -13,7 +13,7 @@ class FirebaseHelper {
     ) {
         const config = {
             databaseURL: this.DATABASE_URL,
-            credential: firebaseAdmin.credential.cert(require("../../service-account.json")),
+            credential: firebaseAdmin.credential.cert(require("../config/service-account.json")),
         };
         firebaseAdmin.initializeApp(config);
         this.db = firebaseAdmin.database();

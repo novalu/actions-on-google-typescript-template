@@ -110,6 +110,8 @@ If you want to generate dynamic responses using this project, then make this ste
 
 You should see Actions on Google simulator. Start with typing `Talk to my test app` in the Input and confirm. Simulator should return as a response: `Alright, your silly name by Firebase functions is ... I hope you like it! See you next time!`. You can see this response is written in **functions/src/fulfillments/impl/SillyNameFulfillment.ts**.
 
+Note: Silly name is created not only with number and color you've provided to Google Assistant, but with extra random fruit from **FruitsStorage** too. **FruitsStorage** is resolved to **FruitsLocalStorage**, which means that will be used fruits from static array. If you want to use fruits from Firebase Realtime Database, see below.
+
 ## Modify your fulfillments
 
 Now it's time to add fulfillment for your new action. Use Node.js with TypeScript to add your fulfillments, managers and storages.
@@ -209,12 +211,26 @@ try {
 
 Note: If you want to use external APIs in your Firebase Cloud Function, you must upgrade your Firebase account to *Blaze* plan.
 
-### Use Firebase database as a storage [WIP]
+### Use Firebase Realtime Database as a storage
 
-If you want to use your database in your Firebase project as a storage, create 
+If you want to use your database in your Firebase project as a storage, follow these steps:
 
-- Add service-account.json
-- Fill database url to FirebaseUtils
+1. Enable Firebase Realtime Database by going to *Firebase Console* > *Develop* > *Database*, choose *Create Database*, select *Start in Test Mode*, and then *Enable*
+2. Make sure you have opened *Realtime Database* at the top of the screen
+3. Add some data to the database
+4. Go to *Project settings* > *Service accounts*
+5. In the left pane select *Firebase Admin SDK*, then *Node.js*, click on *Generate new private key* > *Generate key* and download JSON file
+6. Rename file from previous step to **service-account.json** and copy it to **functions/src/config**
+7. Go to Database section and copy URL to Firebase Realtime Database to **DATABASE_URL** constant in **functions/src/helpers/FirebaseHelper.ts**
+
+Now you can use *SillyName* example with prepared **FruitsFirebaseStorage**, which is storage for fruits obtained from Firebase Realtime Database. Follow these steps to fill database with fruits and change storage source:
+
+1. Fill database with these data in the root:
+   - **fruits**
+     - **0**: "banana"
+     - **1**: "orange"
+     - **2**: "lemon"
+2. Change resolved value of **FruitsStorage** to **FruitsFirebaseStorage** in **functions/src/di/baseContainer.ts** (see *Dependency Injection* section above for more info about this step).
 
 ### Send message to Slack channel
 
