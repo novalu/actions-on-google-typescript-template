@@ -57,8 +57,8 @@ Note: More detailed instructions are available as this [Actions on Google guide]
 
 ### Install project dependencies 
 
-1. Run command `npm i --only=dev`.
-2. Run command `gulp install-deps`.
+1. Run command `npm i --only=dev` to install neccessary development tools.
+2. Run command `gulp install-deps` to install dependencies for the whole project.
 
 ### Create Actions on Google project
 
@@ -275,13 +275,13 @@ app
 
 ## Actions built with this project
 
-- (your project)
+- [Weather in Czech Republic](https://assistant.google.com/services/a/uid/000000e97c3f16a5?hl=en)
 
 ## Support
 
 Feel free to use this project for building your actions. Pull request welcome. If you like the template, don't forget to leave a star!
 
-If you like to support me, buy me a beer using this PayPal link: [paypal.me/novalu](https://www.paypal.com/paypalme/my/profile). Thank you!
+If you like to support me, buy me a beer using this PayPal link: [paypal.me/novalu](paypal.me/novalu). Thank you!
 
 ## Thanks to
 
