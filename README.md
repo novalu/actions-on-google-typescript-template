@@ -220,7 +220,7 @@ If you want to use your database in your Firebase project as a storage, follow t
 3. Add some data to the database
 4. Go to *Project settings* > *Service accounts*
 5. In the left pane select *Firebase Admin SDK*, then *Node.js*, click on *Generate new private key* > *Generate key* and download JSON file
-6. Rename file from previous step to **service-account.json** and copy it to **functions/src/config**
+6. Rename file from previous step to **service-account.json** and copy it to **/functions**
 7. Go to Database section and copy URL to Firebase Realtime Database to **DATABASE_URL** constant in **functions/src/helpers/FirebaseHelper.ts**
 
 Now you can use *SillyName* example with prepared **FruitsFirebaseStorage**, which is storage for fruits obtained from Firebase Realtime Database. Follow these steps to fill database with fruits and change storage source:

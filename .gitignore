@@ -18,6 +18,6 @@ functions/src/**/*.js.map
 .directory
 
 .firebaserc
-functions/src/config/service-account.json
+functions/service-account.json
 functions/lib
 functions/firebase-debug.log
