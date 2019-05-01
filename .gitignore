@@ -20,3 +20,4 @@ functions/src/**/*.js.map
 .firebaserc
 functions/src/config/service-account.json
 functions/lib
+functions/firebase-debug.log

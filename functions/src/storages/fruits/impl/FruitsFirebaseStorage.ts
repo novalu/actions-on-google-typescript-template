@@ -21,10 +21,9 @@ class FruitsFirebaseStorage implements FruitsStorage {
 
     async getFruits(): Promise<Fruit[]> {
         const rawFruits = (await this.db.ref("/fruits").once("value")).val();
-        const fruits = lodash.map(rawFruits, (rawFruit) => {
+        return lodash.map(rawFruits, (rawFruit) => {
             return new Fruit(rawFruit)
         });
-        return [];
     }
 
 }
