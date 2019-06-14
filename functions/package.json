@@ -9,6 +9,9 @@
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log"
   },
+  "engines": {
+    "node": "8"
+  },
   "main": "lib/main.js",
   "dependencies": {
     "actions-on-google": "2.6.0",
