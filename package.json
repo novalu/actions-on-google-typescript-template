@@ -14,7 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/node": "10.14.4",
+    "@types/node": "10.14.9",
     "inversify": "5.0.1",
     "npm": "6.9.0",
     "reflect-metadata": "0.1.13"
@@ -22,7 +22,7 @@
   "devDependencies": {
     "gulp": "3.9.1",
     "gulp-run-command": "0.0.9",
-    "nodemon": "1.18.11",
-    "typescript": "3.4.4"
+    "nodemon": "1.19.1",
+    "typescript": "3.5.2"
   }
 }
