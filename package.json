@@ -4,12 +4,12 @@
   "description": "",
   "main": "src/main.js",
   "scripts": {
-    "install-deps": "npm i && cd functions && npm i",
+    "install": "npm i && cd functions && npm i",
     "build": "tsc",
-    "start": "npx cross-env NODE_ENV=development node src/main.js",
-    "debug": "npx cross-env NODE_ENV=development node --inspect src/main.js",
-    "watch": "npx cross-env NODE_ENV=development nodemon --inspect",
-    "deploy": "cd functions && npm run deploy"
+    "deploy": "cd functions && npm run deploy",
+    "run-test": "npx cross-env NODE_ENV=development node src/main.js",
+    "run-test-debug": "npx cross-env NODE_ENV=development node --inspect src/main.js",
+    "run-test-continuous": "npx cross-env NODE_ENV=development nodemon --inspect"
   },
   "author": "",
   "license": "ISC",
