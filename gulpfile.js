@@ -1,7 +1,7 @@
 const gulp = require("gulp");
 const run = require("gulp-run-command").default;
 
-gulp.task("install", run("npm run install"));
+gulp.task("install", run("npm run install-libs"));
 gulp.task("build", run("npm run build"));
 gulp.task("deploy", run("npm run deploy"));
 

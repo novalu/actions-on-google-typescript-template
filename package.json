@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/main.js",
   "scripts": {
-    "install": "npm i && cd functions && npm i",
+    "install-libs": "npm i && cd functions && npm i",
     "build": "tsc",
     "deploy": "cd functions && npm run deploy",
     "run-test": "npx cross-env NODE_ENV=development node src/main.js",
