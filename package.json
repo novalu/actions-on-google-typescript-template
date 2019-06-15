@@ -6,9 +6,9 @@
   "scripts": {
     "install-deps": "npm i && cd functions && npm i",
     "build": "tsc",
-    "start": "NODE_ENV=development node src/main.js",
-    "debug": "NODE_ENV=development node --inspect src/main.js",
-    "watch": "NODE_ENV=development nodemon --inspect",
+    "start": "npx cross-env NODE_ENV=development node src/main.js",
+    "debug": "npx cross-env NODE_ENV=development node --inspect src/main.js",
+    "watch": "npx cross-env NODE_ENV=development nodemon --inspect",
     "deploy": "cd functions && npm run deploy"
   },
   "author": "",
@@ -20,6 +20,7 @@
     "reflect-metadata": "0.1.13"
   },
   "devDependencies": {
+    "cross-env": "5.2.0",
     "gulp": "3.9.1",
     "gulp-run-command": "0.0.9",
     "nodemon": "1.19.1",

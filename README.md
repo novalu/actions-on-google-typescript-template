@@ -58,7 +58,7 @@ Note: More detailed instructions are available as this [Actions on Google guide]
 ### Install project dependencies 
 
 1. Run command `npm i --only=dev` to install neccessary development tools.
-2. Run command `gulp install-deps` to install dependencies for the whole project.
+2. Run command `npx gulp install-deps` to install dependencies for the whole project.
 
 ### Create Actions on Google project
 
@@ -94,7 +94,7 @@ If you want to generate dynamic responses using this project, then make this ste
    6. switch on the *Enable webhook call for this intent*,
    7. click *Save*.
 2. Deploy your functions:
-   1. Run command `gulp deploy`. This will compile and upload your function to Firebase Cloud Functions. If everything goes right, you should see deployed function URL labeled as `dialogflowFilfillment` (take a note)
+   1. Run command `npx gulp deploy`. This will compile and upload your function to Firebase Cloud Functions. If everything goes right, you should see deployed function URL labeled as `dialogflowFilfillment` (take a note)
 3. Set fulfillment URL:
    1. Open Dialogflow console,
    2. select *Fulfillment* from the left menu,
@@ -116,7 +116,7 @@ Note: Silly name is created not only with number and color you've provided to Go
 
 Now it's time to add fulfillment for your new action. Use Node.js with TypeScript to add your fulfillments, managers and storages.
 
-If you make any changes to your fulfillment, you should deploy functions with `gulp deploy`.
+If you make any changes to your fulfillment, you should deploy functions with `npx gulp deploy`.
 
 ### Dependency injection
 
@@ -184,9 +184,9 @@ Sometimes you need a collection of items you want to use in your business logic.
 
 ## Test your app locally
 
-You can test your app by using your managers in the **src/TestApp.ts**. Run `gulp build` to transpile from source code and then `gulp start` to execute the `test` method.
+You can test your app by using your managers in the **src/TestApp.ts**. Run `npx gulp build` to transpile from source code and then `npx gulp start` to execute the `test` method.
 
-If you would to have your app automatically transpiled and executed when source code is changed, run `gulp build-and-watch`, leave running it in background and in another terminal run `gulp watch-run`. If you make any changes in `.ts` files, project will be automatically recompiled using `tsc` and then executed.
+If you would to have your app automatically transpiled and executed when source code is changed, run `npx gulp build-and-watch`, leave running it in background and in another terminal run `npx gulp watch-run`. If you make any changes in `.ts` files, project will be automatically recompiled using `tsc` and then executed.
 
 ## Debugging
 
