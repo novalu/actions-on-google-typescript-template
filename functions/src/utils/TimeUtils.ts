@@ -1,5 +1,5 @@
-import * as moment from "moment";
-import * as momentTimezone from "moment-timezone";
+import moment from "moment";
+import momentTimezone from "moment-timezone";
 
 class TimeUtils {
   static readonly PATTERN_TIME_HUMAN = "HH:mm";

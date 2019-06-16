@@ -1,7 +1,7 @@
 import * as url from "url";
 import * as util from "util";
 import chalk from "chalk";
-import * as moment from "moment";
+import moment from "moment";
 import { inject, injectable } from "inversify";
 import {TYPES} from "../../di/types";
 import {TimeUtils} from "../TimeUtils";

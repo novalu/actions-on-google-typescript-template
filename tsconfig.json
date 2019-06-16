@@ -6,6 +6,7 @@
     "sourceMap": true, // debug support
     "rootDir": "", // typescript maintain directory structure
     "resolveJsonModule": true,
+    "esModuleInterop": true,
     "experimentalDecorators": true, // inversify
     "emitDecoratorMetadata": true, // inversify
     "lib": [
