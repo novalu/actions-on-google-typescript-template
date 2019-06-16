@@ -8,8 +8,9 @@
     "build": "tsc",
     "deploy": "cd functions && npm run deploy",
     "run-test": "npx cross-env NODE_ENV=development node src/main.js",
-    "run-test-debug": "npx cross-env NODE_ENV=development node --inspect src/main.js",
-    "run-test-continuous": "npx cross-env NODE_ENV=development nodemon --inspect"
+    "run-test-continuous": "npx cross-env NODE_ENV=development nodemon",
+    "debug-test": "npx cross-env NODE_ENV=development node --inspect src/main.js",
+    "debug-test-continuous": "npx cross-env NODE_ENV=development nodemon --inspect"
   },
   "author": "",
   "license": "ISC",

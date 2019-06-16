@@ -186,11 +186,13 @@ Sometimes you need a collection of items you want to use in your business logic.
 
 You can test your app by using your managers in the **src/TestApp.ts**. Run `npx gulp build` to transpile from source code and then `npx gulp run-test` to execute the `test` method.
 
-If you would to have your app automatically transpiled and executed when source code is changed, run `npx gulp`. Whenever you make any changes in `.ts` files, project will be automatically recompiled using `tsc` and then executed.
+If you would to have your app automatically transpiled and executed when source code is changed, run `npx gulp build-and-run continuous` or simply shorthand `npx gulp`. Whenever you make any changes in `.ts` files, project will be automatically recompiled using `tsc` and then executed.
 
 ## Debugging
 
-If you want to write debugging info to both your console and Firebase Cloud Functions log, you can use class **src/utils/log/Logger.ts** as a dependency. Then you can call methods `trace`, `debug`, `info`, `warn`, `error`, `fatal`. Logger use implementation depending on whether is app executed locally (library `signale`) or in Firebase Cloud Functions environment (simple console logging).
+You can start debugging test app by running `npx gulp debug-test`. Similarly as running test continuously when source code is change, you can run continuously debugging by command `npx gulp build-and-debug-continuous`.
+
+If you want to write logging info to both your console and Firebase Cloud Functions log, you can use class **src/utils/log/Logger.ts** as a dependency. Then you can call methods `trace`, `debug`, `info`, `warn`, `error`, `fatal`. Logger use implementation depending on whether is app executed locally (library `signale`) or in Firebase Cloud Functions environment (simple console logging).
 
 If your function deployed to Firebase Cloud Functions is not working, most likely you'll find some useful info in Firebase console. Choose *Develop* > *Functions* > *Log*.
 
@@ -287,7 +289,7 @@ If you like to support me, buy me a beer using this PayPal link: [paypal.me/nova
 
 - Authors of libraries used in this template.
 - Authors of SillyNameMaker example action (https://github.com/actions-on-google/dialogflow-silly-name-maker)
-- Betatesters: N/A
+- Betatesters: Attendees of [Voice Hackathon 2019 in Brno](https://www.voicehackathon.org/)
 
 ## Background
 

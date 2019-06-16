@@ -6,8 +6,10 @@ gulp.task("build", run("npm run build"));
 gulp.task("deploy", run("npm run deploy"));
 
 gulp.task("run-test", run("npm run run-test"));
-gulp.task("run-test-debug", run("npm run run-test-debug"));
+gulp.task("debug-test", run("npm run run-test-debug"));
+
 gulp.task("run-test-continuous", run("npm run run-test-continuous"));
+gulp.task("debug-test-continuous", run("npm run debug-test-continuous"));
 
 // build once everytime the sources has been changed
 gulp.task("build-continuous", () => {
@@ -19,5 +21,6 @@ gulp.task("build-continuous", () => {
 
 // build once, after sources was changed and execute after sources was transpiled
 gulp.task("build-and-run-continuous", ["build", "build-continuous", "run-test-continuous"]);
+gulp.task("build-and-debug-continuous", ["build", "build-continuous", "debug-test-continuous"]);
 
 gulp.task("default", ["build-and-run-continuous"]);
