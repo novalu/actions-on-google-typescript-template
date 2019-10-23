@@ -1,13 +1,9 @@
 ############### APP ##################
 
-/node_modules
-/functions/node_modules
+node_modules
 
-# ignore all generated js and map
 src/**/*.js
 src/**/*.js.map
-functions/src/**/*.js
-functions/src/**/*.js.map
 
 ############## .IDEA #################
 
@@ -15,9 +11,4 @@ functions/src/**/*.js.map
 
 ####### CONFIGURATION FILES ##########
 
-.directory
-
 .firebaserc
-functions/service-account.json
-functions/lib
-functions/firebase-debug.log

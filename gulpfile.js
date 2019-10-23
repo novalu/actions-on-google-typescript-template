@@ -3,7 +3,10 @@ const run = require("gulp-run-command").default;
 
 gulp.task("install", run("npm run install-libs"));
 gulp.task("build", run("npm run build"));
-gulp.task("deploy", run("npm run deploy"));
+
+gulp.task("deploy-all", run("npm run deploy-all"));
+gulp.task("deploy-development", run("npm run deploy-development"));
+gulp.task("deploy-production", run("npm run deploy-production"));
 
 gulp.task("run-test", run("npm run run-test"));
 gulp.task("debug-test", run("npm run run-test-debug"));

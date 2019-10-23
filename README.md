@@ -94,12 +94,13 @@ If you want to generate dynamic responses using this project, then make this ste
    6. switch on the *Enable webhook call for this intent*,
    7. click *Save*.
 2. Deploy your functions:
-   1. Run command `npx gulp deploy`. This will compile and upload your function to Firebase Cloud Functions. If everything goes right, you should see deployed function URL labeled as `dialogflowFilfillment` (take a note)
+   1. Run command `npx gulp deploy-development`. This will compile and upload your function to Firebase Cloud Functions. If everything goes right, you should see deployed function URL labeled as `dialogflowDevelopment` (take a note*)
+   2. If you want to deploy your development and production functions side by side, you can use `npx gulp deploy-production` too.
 3. Set fulfillment URL:
    1. Open Dialogflow console,
    2. select *Fulfillment* from the left menu,
    3. switch on the *Webhook* option,
-   4. fill URL of your function (from previous step),
+   4. fill URL of your function (from step 2.1),
    5. click *Save*.
 4. Test in Actions on Google simulator:
    1. Open Dialogflow console,
@@ -283,7 +284,9 @@ app
 
 Feel free to use this project for building your actions. Pull request welcome. If you like the template, don't forget to leave a star!
 
-If you like to support me, buy me a beer using this PayPal link: [paypal.me/novalu](paypal.me/novalu). Thank you!
+If you like to support me, buy me a beer using PayPal ([paypal.me/novalu](paypal.me/novalu)). Thank you!
+
+<!--<a href="https://www.buymeacoffee.com/gLNTvG7us" target="_blank"><img src="https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>-->
 
 ## Thanks to
 

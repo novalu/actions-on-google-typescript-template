@@ -6,4 +6,6 @@ import { TYPES } from "./di/types";
 const functionsApp = container.get<FunctionsApp>(TYPES.FunctionsApp);
 
 exports.test = functionsApp.getTestFunction();
-exports.dialogflowFulfillment = functionsApp.getDialogflowFunction();
+
+exports.dialogflowDevelopment = functionsApp.getDialogflowFunction();
+exports.dialogflowProduction = functionsApp.getDialogflowFunction();

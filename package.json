@@ -6,7 +6,9 @@
   "scripts": {
     "install-libs": "npm i && cd functions && npm i",
     "build": "tsc",
-    "deploy": "cd functions && npm run deploy",
+    "deploy-all": "cd functions && npm run deploy-all",
+    "deploy-development": "cd functions && npm run deploy-development",
+    "deploy-production": "cd functions && npm run deploy-production",
     "run-test": "npx cross-env NODE_ENV=development node src/main.js",
     "run-test-continuous": "npx cross-env NODE_ENV=development nodemon",
     "debug-test": "npx cross-env NODE_ENV=development node --inspect src/main.js",
