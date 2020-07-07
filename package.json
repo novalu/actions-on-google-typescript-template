@@ -16,7 +16,7 @@
   "dependencies": {
     "@types/node": "10.14.9",
     "inversify": "5.0.1",
-    "npm": "6.9.0",
+    "npm": "6.14.6",
     "reflect-metadata": "0.1.13"
   },
   "devDependencies": {
