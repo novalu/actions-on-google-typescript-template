@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "cross-env": "5.2.0",
-    "gulp": "3.9.1",
+    "gulp": "4.0.2",
     "gulp-run-command": "0.0.9",
     "nodemon": "1.19.1",
     "typescript": "3.5.2"
