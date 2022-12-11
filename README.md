@@ -1,3 +1,7 @@
+# This repo has been archived due to sunset of Actions on Google.
+
+---
+
 # Build an Action on Google using Firebase Cloud Functions
 
 Have you ever want to build your action with Actions on Google but got overwhelmed with several required technologies? There are various steps in different services *Actions on Google*, *Dialogflow*, *Firebase* in documentation and inexperienced user could be confused.
@@ -278,7 +282,7 @@ app
 
 ## Actions built with this project
 
-- [Weather in Czech Republic](https://assistant.google.com/services/a/uid/000000e97c3f16a5?hl=en)
+- Weather in Czech Republic ([App Directory](https://assistant.google.com/services/a/uid/000000e97c3f16a5?hl=en))
 
 ## Support
 
